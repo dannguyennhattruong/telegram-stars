@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <style>
+      .card {
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="user" style="padding: 20px;"></div>
+    <div
+      class="products"
+      style="display: flex; flex-wrap: wrap; justify-content: center"
+    >
+      <div class="card" style="width: 18rem">
+        <img
+          src="https://asset.battlecity.io/TANK-Starter-Pack/starterpack.png"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Starter Pack</h5>
+          <p class="card-text">
+            With the Legends of Tank Mystery Box, begin your thrilling battle in
+            the world of the Legends of Tank Game with randomly 3 tanks and 1
+            hangar. Stay safe and bring home the loot!!!
+          </p>
+          <a href="#" class="btn btn-primary" onclick="lum()">Lụm</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem">
+        <img
+          src="https://asset.battlecity.io/TANK-Starter-Pack/starterpack.png"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Starter Pack</h5>
+          <p class="card-text">
+            With the Legends of Tank Mystery Box, begin your thrilling battle in
+            the world of the Legends of Tank Game with randomly 3 tanks and 1
+            hangar. Stay safe and bring home the loot!!!
+          </p>
+          <a href="#" class="btn btn-primary" onclick="lum()">Lụm</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem">
+        <img
+          src="https://asset.battlecity.io/TANK-Starter-Pack/starterpack.png"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Starter Pack</h5>
+          <p class="card-text">
+            With the Legends of Tank Mystery Box, begin your thrilling battle in
+            the world of the Legends of Tank Game with randomly 3 tanks and 1
+            hangar. Stay safe and bring home the loot!!!
+          </p>
+          <a href="#" class="btn btn-primary" onclick="lum()">Lụm</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem">
+        <img
+          src="https://asset.battlecity.io/TANK-Starter-Pack/starterpack.png"
+          class="card-img-top"
+          alt="..."
+        />
+        <div class="card-body">
+          <h5 class="card-title">Starter Pack</h5>
+          <p class="card-text">
+            With the Legends of Tank Mystery Box, begin your thrilling battle in
+            the world of the Legends of Tank Game with randomly 3 tanks and 1
+            hangar. Stay safe and bring home the loot!!!
+          </p>
+          <a href="#" class="btn btn-primary" onclick="lum()">Lụm</a>
+        </div>
+      </div>
+    </div>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+      window.Telegram.WebApp.enableClosingConfirmation();
+      window.Telegram.WebApp.headerColor = "#000";
+      let a = window?.Telegram?.WebApp?.initDataUnsafe?.user;
+      document.getElementById("user").innerText = "Hi @" + a?.username;
+    </script>
+    <script>
+      let invoiceLink = "https://t.me/$-Y9lV5bO-FciAQAAv1ZlLI1FvJ8";
+      const lum = async () => {
+        window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
+          alert(status);
+          if (status === "paid") {
+            // Telegram notified us that the payment has been made
+            // Refresh user's balance, plan, etc
+          }
+        });
+      };
+    </script>
+  </body>
+</html>
