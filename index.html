@@ -96,13 +96,13 @@
       document.getElementById("user").innerText = "Hi @" + a?.username;
     </script>
     <script>
-      let invoiceLink = "https://t.me/$ZbUwLWvj-FebAAAA6-JWMwgMMgo";
+      let invoiceLink = "https://t.me/$UI4ihJbO-FclAQAAc7sOOhN3d_s";
       const lum = async () => {
         window.Telegram.WebApp.openInvoice(invoiceLink, (status) => {
-          alert(status);
           if (status === "paid") {
             // Telegram notified us that the payment has been made
             // Refresh user's balance, plan, etc
+            alert('Thank you for your purchase! ')
           }
         });
       };
