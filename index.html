@@ -177,12 +177,13 @@
               const chatId = localStorage.getItem("chatId");
               console.log(status);
               paymentHistory().then((res) => {
+                const now = Date.now();
                 const ownPayments = res.filter(
                   (f) =>
-                    f?.user_id === chatId &&
+                    f?.user_id === 1522155722 &&
                     !f?.scanned &&
-                    f?.create_at &&
-                    f?.create_at <= Date.now() - 2 * 60 * 1000
+                    f?.create_at >= now - 20 * 60 * 1000 &&
+                    f?.create_at <= now + 20 * 60 * 1000
                 );
                 console.log({
                   status,
