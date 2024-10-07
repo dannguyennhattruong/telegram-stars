@@ -180,7 +180,7 @@
                 const now = Date.now();
                 const ownPayments = res.filter(
                   (f) =>
-                    f?.user_id === 1522155722 &&
+                    f?.user_id === localStorage.getItem('chatId') &&
                     !f?.scanned &&
                     f?.create_at >= now - 20 * 60 * 1000 &&
                     f?.create_at <= now + 20 * 60 * 1000
