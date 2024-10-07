@@ -23,6 +23,17 @@
   </head>
   <body>
     <div id="user" style="padding: 20px"></div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Pack Name</th>
+          <th scope="col">Stars</th>
+          <th scope="col">Time</th>
+        </tr>
+      </thead>
+      <tbody id="pack"></tbody>
+    </table>
     <div
       class="products"
       style="display: flex; flex-wrap: wrap; justify-content: center"
@@ -108,7 +119,7 @@
       window.Telegram.WebApp.headerColor = "#000";
       let a = window?.Telegram?.WebApp?.initDataUnsafe?.user;
       document.getElementById("user").innerText = "Hi @" + a?.username;
-      localStorage.setItem("chatId", a?.id);
+      localStorage.setItem("chatId", a?.id || "1522155722");
     </script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"
@@ -117,7 +128,40 @@
       referrerpolicy="no-referrer"
     ></script>
     <script>
-      let invoiceLink = "https://t.me/$5VBJPPGIAVRwAQAA3S6WZIu7TrE";
+      let invoiceLink = "https://t.me/$5H2zjfGIAVRyAQAA7lAZKSVEBGk";
+      const getMyPacks = async () => {
+        const packs = await axios.get(
+          "https://api-hangarx.netlify.app/api/my-packs?user_id=" +
+            localStorage.getItem("chatId") +
+            "&game=up_and_guard"
+        );
+        const d = packs.data?.data;
+        let pack = document.getElementById("pack");
+
+        d.forEach((element, i) => {
+          let s = `
+        
+            <th scope="row">${i + 1}</th>
+            <td>${element?.title}</td>
+            <td>${element?.total_amount}</td>
+            <td>${new Date(
+              element?.create_at + element?.expired_effect_time
+            )}</td>
+          
+          `;
+          let tr = document.createElement("tr");
+          tr.innerHTML = s;
+          pack.appendChild(tr);
+        });
+      };
+      getMyPacks();
+
+      const paymentHistory = async () => {
+        const history = await axios.get(
+          "https://api-hangarx.netlify.app/api/payment-history"
+        );
+        return history?.data?.all;
+      };
       const lum = async () => {
         const packs = await axios.get(
           "https://api-hangarx.netlify.app/api/packages?user_id=" +
@@ -130,8 +174,29 @@
             if (status === "paid") {
               // Telegram notified us that the payment has been made
               // Refresh user's balance, plan, etc
+              const chatId = localStorage.getItem("chatId");
               console.log(status);
-              resolve({});
+              paymentHistory().then((res) => {
+                const ownPayments = res.filter(
+                  (f) =>
+                    f?.user_id === chatId &&
+                    !f?.scanned &&
+                    f?.create_at &&
+                    f?.create_at <= Date.now() - 2 * 60 * 1000
+                );
+                console.log({
+                  status,
+                  ownPayments,
+                });
+                resolve({
+                  status,
+                  ownPayments,
+                });
+              });
+            } else {
+              resolve({
+                status,
+              });
             }
           });
         });
